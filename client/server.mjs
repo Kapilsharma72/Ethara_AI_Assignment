@@ -4,13 +4,12 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
-// When run from dist/ (Railway), assets are in the same directory.
-// When run from client/ (local), assets are in dist/ subdirectory.
-const isDist = __dirname.endsWith('dist') || __dirname.endsWith('dist/');
-const DIST = isDist ? __dirname : path.join(__dirname, 'dist');
-
+const DIST = path.join(__dirname, 'dist');
 const PORT = process.env.PORT || 3000;
+
+console.log(`[client] __dirname: ${__dirname}`);
+console.log(`[client] DIST: ${DIST}`);
+console.log(`[client] PORT: ${PORT}`);
 
 const MIME = {
   '.html': 'text/html; charset=utf-8',
@@ -53,6 +52,5 @@ http.createServer((req, res) => {
     res.end(data);
   });
 }).listen(PORT, () => {
-  console.log(`[client] Serving from: ${DIST}`);
-  console.log(`[client] Listening on port ${PORT}`);
+  console.log(`[client] Server listening on port ${PORT}`);
 });

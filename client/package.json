@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build && node -e \"require('fs').copyFileSync('server.mjs','dist/server.mjs')\"",
+    "build": "tsc && vite build",
     "start": "npx serve dist -l ${PORT:-8080} -s",
     "preview": "vite preview --host 0.0.0.0 --port ${PORT:-8080}",
     "test": "vitest --run",
