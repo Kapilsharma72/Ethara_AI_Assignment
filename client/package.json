@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "start": "node serve.cjs",
+    "start": "npx serve dist -l ${PORT:-8080} -s",
     "preview": "vite preview --host 0.0.0.0 --port ${PORT:-8080}",
     "test": "vitest --run",
     "lint": "eslint src"
