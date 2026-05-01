@@ -1,9 +1,9 @@
 [build]
 builder = "nixpacks"
-buildCommand = "npm install && npm run build --workspace=server"
+buildCommand = "npm install && npm run build"
 
 [deploy]
-startCommand = "node server/dist/db/migrate.js && node server/dist/server.js"
+startCommand = "node dist/db/migrate.js && node dist/server.js"
 healthcheckPath = "/health"
 healthcheckTimeout = 60
 restartPolicyType = "on_failure"

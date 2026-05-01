@@ -1,6 +1,6 @@
 [build]
 builder = "nixpacks"
-buildCommand = "npm install && npm run build --workspace=client"
+buildCommand = "npm install && npm run build"
 
 [deploy]
-startCommand = "node client/serve.js"
+startCommand = "node serve.js"
