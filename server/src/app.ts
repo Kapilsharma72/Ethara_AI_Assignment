@@ -9,8 +9,24 @@ import { errorHandler } from './middleware/errorHandler';
 export function createApp(): Application {
   const app = express();
 
-  // CORS — allow requests only from the configured client origin
-  app.use(cors({ origin: env.CLIENT_ORIGIN }));
+  // CORS — allow requests from configured origin(s)
+  // CLIENT_ORIGIN can be comma-separated for multiple origins
+  const allowedOrigins = env.CLIENT_ORIGIN
+    .split(',')
+    .map((o) => o.trim())
+    .filter(Boolean);
+
+  app.use(
+    cors({
+      origin: (origin, callback) => {
+        // Allow requests with no origin (mobile apps, curl, server-to-server)
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.includes(origin)) return callback(null, true);
+        callback(new Error(`CORS: origin ${origin} not allowed`));
+      },
+      credentials: true,
+    })
+  );
 
   // Parse JSON request bodies
   app.use(express.json());

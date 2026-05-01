@@ -2,6 +2,14 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "framework": "vite",
+  "env": {
+    "VITE_API_URL": "https://ethara-ai-assignment-1.onrender.com"
+  },
+  "build": {
+    "env": {
+      "VITE_API_URL": "https://ethara-ai-assignment-1.onrender.com"
+    }
+  },
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]
