@@ -15,7 +15,7 @@ function TestConsumer(): React.JSX.Element {
         onClick={() =>
           login({
             token: 'test-token',
-            user: { id: 1, name: 'Alice', email: 'alice@example.com' },
+            user: { id: 1, name: 'Alice', email: 'alice@example.com', role: 'admin' as const },
           })
         }
       >
@@ -47,7 +47,7 @@ describe('AuthContext', () => {
   });
 
   it('hydrates state from localStorage on initial load', () => {
-    const user: User = { id: 2, name: 'Bob', email: 'bob@example.com' };
+    const user: User = { id: 2, name: 'Bob', email: 'bob@example.com', role: 'member' };
     localStorage.setItem('token', 'stored-token');
     localStorage.setItem('user', JSON.stringify(user));
 
@@ -67,18 +67,20 @@ describe('AuthContext', () => {
       id: 1,
       name: 'Alice',
       email: 'alice@example.com',
+      role: 'admin',
     });
     expect(localStorage.getItem('token')).toBe('test-token');
     expect(JSON.parse(localStorage.getItem('user')!)).toEqual({
       id: 1,
       name: 'Alice',
       email: 'alice@example.com',
+      role: 'admin',
     });
   });
 
   it('logout clears state and localStorage', async () => {
     localStorage.setItem('token', 'existing-token');
-    localStorage.setItem('user', JSON.stringify({ id: 1, name: 'Alice', email: 'alice@example.com' }));
+    localStorage.setItem('user', JSON.stringify({ id: 1, name: 'Alice', email: 'alice@example.com', role: 'admin' }));
 
     renderWithProvider();
 

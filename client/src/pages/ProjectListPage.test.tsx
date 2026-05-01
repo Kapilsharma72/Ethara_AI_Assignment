@@ -36,7 +36,7 @@ import apiClient from '../api/client';
 const mockedGet = apiClient.get as ReturnType<typeof vi.fn>;
 const mockedPost = apiClient.post as ReturnType<typeof vi.fn>;
 
-const TEST_USER = { id: 1, name: 'Alice', email: 'alice@example.com' };
+const TEST_USER = { id: 1, name: 'Alice', email: 'alice@example.com', role: 'admin' as const };
 const TEST_TOKEN = 'test-token';
 
 function renderProjectListPage() {
@@ -83,7 +83,7 @@ describe('ProjectListPage', () => {
     renderProjectListPage();
 
     await waitFor(() => {
-      expect(screen.getByText(/you don't belong to any projects yet/i)).toBeInTheDocument();
+      expect(screen.getByText(/you don't have any projects yet/i)).toBeInTheDocument();
     });
     expect(screen.getByText(/create one to get started/i)).toBeInTheDocument();
   });
@@ -150,7 +150,7 @@ describe('ProjectListPage', () => {
     renderProjectListPage();
 
     await waitFor(() => {
-      expect(screen.getByText(/you don't belong to any projects yet/i)).toBeInTheDocument();
+      expect(screen.getByText(/you don't have any projects yet/i)).toBeInTheDocument();
     });
 
     await user.click(screen.getByRole('button', { name: /\+ new project/i }));
@@ -166,6 +166,7 @@ describe('ProjectListPage', () => {
       name: 'New App',
       createdAt: '2024-01-03T00:00:00Z',
       role: 'admin',
+      taskSummary: { total: 0, todo: 0, inProgress: 0, done: 0 },
     };
 
     // First call: initial fetchProjects, second call: refetch after create
@@ -177,7 +178,7 @@ describe('ProjectListPage', () => {
     renderProjectListPage();
 
     await waitFor(() => {
-      expect(screen.getByText(/you don't belong to any projects yet/i)).toBeInTheDocument();
+      expect(screen.getByText(/you don't have any projects yet/i)).toBeInTheDocument();
     });
 
     // Open modal
@@ -217,7 +218,7 @@ describe('ProjectListPage', () => {
     renderProjectListPage();
 
     await waitFor(() => {
-      expect(screen.getByText(/you don't belong to any projects yet/i)).toBeInTheDocument();
+      expect(screen.getByText(/you don't have any projects yet/i)).toBeInTheDocument();
     });
 
     // Open modal
