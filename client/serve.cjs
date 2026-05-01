@@ -15,11 +15,6 @@ const path = require('path');
 const DIST_DIR = path.join(__dirname, 'dist');
 const PORT = process.env.PORT || 8080;
 
-// When running from inside dist/ (Railway production), assets are in the same dir.
-// When running from client/ (local), assets are in dist/ subdirectory.
-const isInsideDist = path.basename(__dirname) === 'dist';
-const SERVE_DIR = isInsideDist ? __dirname : DIST_DIR;
-
 /** Detect whether a filename contains a content hash segment (e.g. main.a3f9c1.js) */
 function isHashedAsset(filename) {
   // Vite produces filenames like: name-[hash].ext or name.[hash].ext
@@ -64,14 +59,14 @@ const server = http.createServer((req, res) => {
 
   // Prevent directory traversal
   const safePath = path.normalize(urlPath).replace(/^(\.\.[/\\])+/, '');
-  let filePath = path.join(SERVE_DIR, safePath);
+  let filePath = path.join(DIST_DIR, safePath);
 
   // Resolve the file to serve
   function serveFile(targetPath) {
     fs.stat(targetPath, (err, stats) => {
       if (err || !stats.isFile()) {
         // SPA fallback: serve index.html for any unmatched path
-        const indexPath = path.join(SERVE_DIR, 'index.html');
+        const indexPath = path.join(DIST_DIR, 'index.html');
         fs.readFile(indexPath, (readErr, data) => {
           if (readErr) {
             res.writeHead(404, { 'Content-Type': 'text/plain' });
@@ -130,5 +125,5 @@ const server = http.createServer((req, res) => {
 
 server.listen(PORT, () => {
   console.log(`Static file server listening on port ${PORT}`);
-  console.log(`Serving files from: ${SERVE_DIR}`);
+  console.log(`Serving files from: ${DIST_DIR}`);
 });

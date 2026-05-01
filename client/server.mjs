@@ -7,10 +7,6 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DIST = path.join(__dirname, 'dist');
 const PORT = process.env.PORT || 3000;
 
-console.log(`[client] __dirname: ${__dirname}`);
-console.log(`[client] DIST: ${DIST}`);
-console.log(`[client] PORT: ${PORT}`);
-
 const MIME = {
   '.html': 'text/html; charset=utf-8',
   '.js': 'application/javascript; charset=utf-8',
@@ -52,5 +48,5 @@ http.createServer((req, res) => {
     res.end(data);
   });
 }).listen(PORT, () => {
-  console.log(`[client] Server listening on port ${PORT}`);
+  console.log(`Server listening on port ${PORT}`);
 });
