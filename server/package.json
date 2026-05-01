@@ -4,7 +4,7 @@
   "description": "Team Task Manager REST API",
   "main": "dist/server.js",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && node -e \"const fs=require('fs'),path=require('path');const src=path.join('src','db','migrations');const dst=path.join('dist','db','migrations');fs.mkdirSync(dst,{recursive:true});fs.readdirSync(src).filter(f=>f.endsWith('.sql')).forEach(f=>fs.copyFileSync(path.join(src,f),path.join(dst,f)));console.log('SQL migrations copied to dist/')\"",
     "start": "node dist/server.js",
     "dev": "ts-node-dev --respawn src/server.ts",
     "test": "node --experimental-vm-modules node_modules/.bin/jest",
