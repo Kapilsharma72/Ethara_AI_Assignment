@@ -4,6 +4,10 @@ A full-stack web application for managing team projects and tasks. Built with Re
 
 Think of it as a lightweight version of Trello or Asana — admins create projects, invite team members, assign tasks, and track progress. Members log in and see exactly what's been assigned to them.
 
+
+LIVE LINK:👇👇👇
+https://ethara-ai-assignment-client.vercel.app/
+
 ---
 
 ## What it does
