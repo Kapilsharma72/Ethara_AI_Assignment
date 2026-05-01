@@ -2,8 +2,9 @@ services:
   - type: web
     name: team-task-manager-server
     runtime: node
+    rootDir: server
     buildCommand: npm install && npm run build
-    startCommand: node server/start.js
+    startCommand: node start.js
     healthCheckPath: /health
     envVars:
       - key: NODE_ENV
